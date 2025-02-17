@@ -1,13 +1,13 @@
 GAL22V10
 6502 mk2r2
 
-A12  A13  A14  A15  B0   B1   B2   B3   M0   M1   NC   GND
+A12  A13  A14  A15  B0   B1   B2   B3   M0   M1   M2   GND
 MREQ NC   HA16 HA15 HA14 HA13 HA12 WINE RAME ROME AF4K VCC
 
 AF4K = A15*A14*A13*A12
 /ROME = MREQ*/M1*A15*A14*A13
 /RAME = MREQ*M1 + MREQ*/A15 + MREQ*A15*/A14 + MREQ*A15*A14*/A13
-WINE = A15*A14*/A13
+WINE = /M2*A15*A14*/A13
 HA16 = /M0*WINE + M0*/WINE
 HA15 = /WINE*A15 + WINE*B3
 HA14 = /WINE*A14 + WINE*B2
@@ -28,16 +28,19 @@ L   H    $0000...FFFF => RAM $00000..0FFFF
 H   L    $0000...DFFF => RAM $10000..1DFFF, $E000..FFFF => ROM $0000..1FFF
 H   H    $0000...DFFF => RAM $10000..1FFFF
 
-Additionally, the 8K window of memory from $C000..$DFFF can address any 8K
-segment of RAM that is not mapped into the 6502 memory space based on the
-M0 bit. A 4-bit segment address is written to the B0..B3 bits of the 
-configuration register. When M0 is low, $C000..DFFF is mapped to the 
-segment at $1b000 (where b is the 4-bit segment address). When M1 is high, 
-$C000..DFFF is mapped to the segment at $0b000.
+Additionally when the M2 mode bit is low, the 8K window of memory from 
+$C000..$DFFF can address any 8K segment of the portion of RAM that is 
+not mapped into the 6502 memory space (based on the M0 bit). A 4-bit 
+segment address is written to the B0..B3 bits of the configuration register.
+When M0 is low, $C000..DFFF is mapped to the segment at $1x000 (where x is 
+the 4-bit segment address). When M1 is high, $C000..DFFF is mapped to the
+segment at $0x000.
 
-The internally used WINE signal determines whether the address on the bus
-is within the window, and is used to select the appropriate output levels
-for the HA12..16 address lines
+The internally used WINE signal determines whether the window is enabled and 
+whether the address on the bus is within the window. It is used to select which
+inputs are used to drive the HA12..16 outputs. When WINE is low, the A12..15
+are used to drive HA12..15 while M0 drives HA16. When WINE is high, B0..3 
+will drive HA12..15 and /M0 will drive HA16.
 
 The active high AF4K output signal indicates that A12..A15 are all logic
 high, meaning that the address fall within the uppermost 4K at $F000..FFFF.

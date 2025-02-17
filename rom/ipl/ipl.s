@@ -16,12 +16,13 @@ id_message:
 		ansi_erase_display
 		.byte BEL, "SB6502 Mk2", LF, NUL
 
+
 		.segment "CODE"
 
 ;-----------------------------------------------------------------------
 ; ipl:
 ; Initial program load. This routine puts the hardware into a known
-; configuration with the MMU enabled, and then executes the monitor.
+; configuration, and then executes the loader.
 ;
 ipl:
 		sei			; inhibit interrupts

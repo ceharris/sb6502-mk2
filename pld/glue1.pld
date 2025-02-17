@@ -1,0 +1,27 @@
+GAL22V10
+6502 mk2r2
+
+PHI2 A2   A3   A4   A5   A6   A7   A8   A9   A10  A11  GND
+AF4K RWB  MREQ RDB  WRB  CFGK CFGE CONE IOE2 IOE1 IOE0 VCC
+
+/IOE0 = AF4K*A11*A10*A9*A8*/A7
+/IOE1 = AF4K*A11*A10*A9*A8*A7*/A6
+/IOE2 = AF4K*A11*A10*A9*A8*A7*A6*/A5
+/CONE = AF4K*A11*A10*A9*A8*A7*A6*A5*A4*/A3*/A2
+/CFGE = AF4K*A11*A10*A9*A8*A7*A6*A5*A4*/A3*A2
+CFGK = PHI2*/RWB*/CFGE
+/WRB = PHI2*/RWB
+/RDB = PHI2*RWB
+MREQ = IOE0*IOE1*IOE2*CONE*CFGE
+
+DESCRIPTION
+
+This PLD includes the logic for I/O chip selection, along with active low
+clocked read and write signals needed for memory and some I/O devices. 
+
+The active high input AF4K (provided from the other PLD in the system)
+indicates that the top four bits of the address are all ones; i.e. the
+address is in the top 4K in $F000..FFFF.
+
+The active high MREQ output signal indicates that the address on the bus
+is not assigned to I/O and therefore should be considered a memory request.

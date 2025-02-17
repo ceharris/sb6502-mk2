@@ -1,0 +1,46 @@
+GAL22V10
+6502 mk2r2
+
+A12  A13  A14  A15  B0   B1   B2   B3   M0   M1   NC   GND
+MREQ NC   HA16 HA15 HA14 HA13 HA12 WINE RAME ROME AF4K VCC
+
+AF4K = A15*A14*A13*A12
+/ROME = MREQ*/M1*A15*A14*A13
+/RAME = MREQ*M1 + MREQ*/A15 + MREQ*A15*/A14 + MREQ*A15*A14*/A13
+WINE = A15*A14*/A13
+HA16 = /M0*WINE + M0*/WINE
+HA15 = /WINE*A15 + WINE*B3
+HA14 = /WINE*A14 + WINE*B2
+HA13 = /WINE*A13 + WINE*B1
+HA12 = /WINE*A12 + WINE*B0
+
+DESCRIPTION
+
+This PLD derives the high-order address lines (HA12..16) for the memory 
+and provides active low outputs for choosing between ROM and RAM.
+
+Two mode input bits (M0 and M1) from the configuration register are used 
+to determine the active memory configuration.
+
+M1  M0   DESCRIPTION
+L   L    $0000...DFFF => RAM $00000..0DFFF, $E000..FFFF => ROM $0000..1FFF
+L   H    $0000...FFFF => RAM $00000..0FFFF
+H   L    $0000...DFFF => RAM $10000..1DFFF, $E000..FFFF => ROM $0000..1FFF
+H   H    $0000...DFFF => RAM $10000..1FFFF
+
+Additionally, the 8K window of memory from $C000..$DFFF can address any 8K
+segment of RAM that is not mapped into the 6502 memory space based on the
+M0 bit. A 4-bit segment address is written to the B0..B3 bits of the 
+configuration register. When M0 is low, $C000..DFFF is mapped to the 
+segment at $1b000 (where b is the 4-bit segment address). When M1 is high, 
+$C000..DFFF is mapped to the segment at $0b000.
+
+The internally used WINE signal determines whether the address on the bus
+is within the window, and is used to select the appropriate output levels
+for the HA12..16 address lines
+
+The active high AF4K output signal indicates that A12..A15 are all logic
+high, meaning that the address fall within the uppermost 4K at $F000..FFFF.
+This signal is used as an input to the I/O decoding logic in the other
+PLD.
+

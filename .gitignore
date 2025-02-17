@@ -1,0 +1,14 @@
+*.DS_Store
+*.bin
+*.chp
+*.fus
+*.hex
+*.jed
+*.lbl
+*.lst
+*.map
+*.pin
+*.o
+*.s19
+*.sym
+*.tmp

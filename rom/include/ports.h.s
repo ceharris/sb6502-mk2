@@ -18,14 +18,23 @@
 		CONF_ROM_DISABLE = CONF_M1
 		CONF_WINDOW_DISABLE = CONF_M2
 
+		; Memory configurations
+		;
+		; Lower half of RAM, window enabled, ROM enabled (default mode)
 		CONF_MODE_RAMLW_ROM = 0
+		; Lower half of RAM, window disabled, ROM enabled
 		CONF_MODE_RAML_ROM = CONF_WINDOW_DISABLE
+		; Lower half of RAM, window enabled, ROM disabled
 		CONF_MODE_RAMLW = CONF_ROM_DISABLE
+		; Lower half of RAM, window disabled, ROM disabled
 		CONF_MODE_RAML = CONF_ROM_DISABLE|CONF_WINDOW_DISABLE
-
+		; Upper half of RAM, window enabled, ROM enabled
 		CONF_MODE_RAMHW_ROM = CONF_RAM_UPPER
+		; Upper half of RAM, window disabled, ROM enabled
 		CONF_MODE_RAMH_ROM = CONF_RAM_UPPER|CONF_WINDOW_DISABLE
+		; Upper half of RAM, window enabled, ROM disabled
 		CONF_MODE_RAMHW = CONF_RAM_UPPER|CONF_ROM_DISABLE
+		; Upper half of RAM, window disabled, ROM disabled
 		CONF_MODE_RAMH = CONF_RAM_UPPER|CONF_ROM_DISABLE|CONF_WINDOW_DISABLE
 	
 	.endif

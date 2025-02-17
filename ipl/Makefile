@@ -2,7 +2,7 @@
 .SUFFIXES: .bin .lbl .lst .map .o .s .sym
 
 IMAGE=ipl.bin
-EEPROM_PART=SST39SF040
+EEPROM_PART=AT28C64B
 LD_CONFIG=ipl.cfg
 
 INCLUDES=$(LD_CONFIG) \

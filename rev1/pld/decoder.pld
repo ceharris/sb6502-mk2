@@ -1,0 +1,21 @@
+GAL16V8
+6502 mk2
+
+NC   IOSEL RW     A15     NC      NC   NC    NC    NC   GND
+E    IORQ  MREQ   ROME    RAME    NC   NC    RD    WR   VCC
+
+/RAME = IOSEL * /A15
+
+/ROME = IOSEL * A15
+
+/MREQ = IOSEL * /A15 + IOSEL * A15
+
+IORQ = IOSEL
+
+/RD = E * RW
+
+/WR = E * /RW
+
+DESCRIPTION
+
+Address selection logic for SB6502 Mark II

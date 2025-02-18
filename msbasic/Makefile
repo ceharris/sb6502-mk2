@@ -11,7 +11,7 @@ S19_IMAGE=$(EXECUTABLE).s19
 HEX_IMAGE=$(EXECUTABLE).hex
 ENTRY_TMP=entry.tmp
 
-INCLUDES=$(LD_CONFIG) ../include/acia.h.s ../include/stdio.h.s
+INCLUDES=$(LD_CONFIG) ../include/acia.h.s ../include/stdio.h.s ../include/reset.s
 
 SOURCES=array.s chrget.s defines.s error.s eval.s extra.s float.s flow1.s flow2.s \
 	init.s inline.s input.s iscntc.s loadsave.s macros.s memory.s message.s misc1.s \

@@ -25,6 +25,10 @@ id_message:
 ; configuration, and then executes the loader.
 ;
 ipl:
+		; make sure we're in the default memory mode
+		lda #CONF_MODE_RAMLW_ROM
+		sta CONF_REG
+
 		sei			; inhibit interrupts
 		cld			; clear decimal mode
 		ldx #$ff		

@@ -693,9 +693,10 @@ bootstrap:
 		ldx ENTRY_POINT		; X = entry point LSB
 		ldy ENTRY_POINT+1	; Y = entry point MSB
 
-		; disable memory window
+		; disable memory window and swap memory banks
 		lda MODE_BITS		; A = mode bits
 		ora #CONF_WINDOW_DISABLE
+		eor #CONF_RAM_UPPER
 		sta CONF_REG
 
 		; transfer entry point to (new) stack
@@ -720,7 +721,7 @@ bootstrap:
 		sty BOOTSTRAP_VECTOR+BOOTSTRAP_ENTRY_POINT_OFFSET+1
 		plx			; recover entry point LSB
 		stx BOOTSTRAP_VECTOR+BOOTSTRAP_ENTRY_POINT_OFFSET
-		pla
+		pla			; recover mode bits
 		sta BOOTSTRAP_VECTOR+BOOTSTRAP_MODE_BITS_OFFSET
 		; jump to bootstrap function (at base of stack space)
 		jmp BOOTSTRAP_VECTOR
@@ -735,8 +736,8 @@ bootstrap:
 bootstrap_fn:
 		; set memory mode
 		lda #<DUMMY		; fetch mode bits
-		ora #CONF_ROM_DISABLE	; disable ROM
 		BOOTSTRAP_MODE_BITS_OFFSET = *-bootstrap_fn-1
+		ora #CONF_ROM_DISABLE	; disable ROM
 		sta CONF_REG
 
 		; start program at entry point address

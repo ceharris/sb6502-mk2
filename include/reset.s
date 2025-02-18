@@ -8,34 +8,56 @@
 ; assembler. It might also work for vasm.
 ;
 
-_CONF_REG := $FFD8
-_ACIA_CTRL := $FFD0
+; We're not including ports.h.s here, because include works differently
+; on different assemblers.
+
+_ACIA_CTRL := $FFF0
 _ACIA_RESET := $3
-_MMU_SLOT0 := $FFC0
-_CONF_MMUE := $80
-_IPL_VECTOR := $F000
+
+_CONF_REG := $FFF4
+_CONF_ROM_DISABLE = $20
+
+_IPL_VECTOR := $E000
 _PIVOT_VECTOR := $F0
 
+
+;-----------------------------------------------------------------------
+; pivot_fn:
+; This small function is copied to the zero page and then executed to
+; pivot back to the IPL program in ROM.
+;
+; On entry:
+;       A = current mode bits for the configuation register
+;
 pivot_fn:
-		; disable MMU
-                lda _CONF_REG
-                and #<~_CONF_MMUE
+                ; clear the mode bit that disables the ROM
+                and #<~_CONF_ROM_DISABLE
                 sta _CONF_REG
+
 		; jump back to the IPL program
                 jmp _IPL_VECTOR
 
 _PIVOT_FN_LENGTH := *-pivot_fn
 
+
+;-----------------------------------------------------------------------
+; soft_reset:
+; Jump to this entry point to perform a soft reset of the system and
+; go back to the IPL program.
+;
+; On entry:
+;       A = current memory mode bits
+;
 soft_reset:
+                pha                     ; save the mode bits
 		; quiesce the system
                 sei
                 cld
                 ; reset the ACIA used for the console
                 lda #_ACIA_RESET
                 sta _ACIA_CTRL
-		; put bank 0 in slot zero since we will disable MMU
-		stz _MMU_SLOT0
-		; copy pivot_fn into the zero page
+
+                ; copy the pivot function to low memory
                 ldx #_PIVOT_FN_LENGTH
                 ldy #0
 copy_pivot:
@@ -44,5 +66,7 @@ copy_pivot:
                 iny
                 dex
                 bne copy_pivot
+
+                pla                     ; recover mode bits
                 jmp _PIVOT_VECTOR
 

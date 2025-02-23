@@ -31,6 +31,7 @@ monitor:
 		jsr cinit
 		cli
 		ldiw1 0
+		ldiw2 0
 command:	
 		jsr show_prompt	
 		ldiw0 STDIO_BUF_ADDR
@@ -202,10 +203,20 @@ _pbcd_lower:
 ;	w1 contains the last starting address used in a command
 ;
 ; On return:
+;	w3 contains the previous of w2
 ;	w2 contains the same value as w1
 ;
 show_prompt:
-		tw1w2
+		lda w2
+		sta w3
+		lda w2+1
+		sta w3+1
+
+		lda w1
+		sta w2
+		lda w1+1
+		sta w2+1
+
 		ldx w2
 		lda w2+1
 		jsr phex16
@@ -315,6 +326,8 @@ address_arg:
 		beq @strip		; skip over spaces
 		cmp #TAB
 		beq @strip		; skip over tabs
+		cmp #','
+		beq @comma_arg
 		cmp #'.'
 		bne @check_hex		; not a dot
 
@@ -323,6 +336,14 @@ address_arg:
 		ldx w1
 		lda w1+1
 		bra @done
+
+@comma_arg:
+		; comma (,) means "use current value of w2"
+		iny
+		ldx w3
+		lda w3+1
+		bra @done
+
 @check_hex:
 		phy			; save input pointer
 		jsr hextok		; scan ahead for hex digits

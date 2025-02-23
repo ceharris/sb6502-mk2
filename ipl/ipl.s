@@ -4,6 +4,7 @@
 		.include "conf.h.s"
 		.include "hex.h.s"
 		.include "loader.h.s"
+		.include "monitor.h.s"
 		.include "ports.h.s"
 		.include "stdio.h.s"
 
@@ -43,4 +44,7 @@ ipl:
 
 		; run the loader with default memory model
 		lda #CONF_MODE_RAMLW_ROM
-		jmp loader
+		jsr loader
+
+		; if we returned, it means the asked to run monitor
+		jmp monitor

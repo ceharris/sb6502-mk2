@@ -67,7 +67,9 @@ loader:
 
 		stz REC_TYPE		; zero to allow either start
 		jsr await_start
-
+		bcc @is_start		; go if we got the start indicator
+		rts
+@is_start:
 		cmp #IHEX_START
 		beq @is_intel
 
@@ -231,8 +233,8 @@ read_srec_type:
 		beq @done
 		cmp #'9'
 		beq @done
-		ldy #<err_rec_type
-		lda #>err_rec_type
+		ldy #<err_rec_type_srec
+		lda #>err_rec_type_srec
 		jmp error
 @done:
 		rts
@@ -254,8 +256,8 @@ read_ihex_type:
 		beq @done
 		cmp #IHEX_TYPE_START_ADDR
 		beq @done
-		ldy #<err_rec_type
-		lda #>err_rec_type
+		ldy #<err_rec_type_ihex
+		lda #>err_rec_type_ihex
 		jmp error
 @done:
 		rts
@@ -500,7 +502,8 @@ read_digit:
 ;		   IHEX_START to look for an Intel record
 ;		   NULL to look for either record format
 ; On return:
-;	A = start of record character
+;	if carry clear A = start of record character
+;	if carry set user requested exit
 ;	B clobbered
 ;
 await_start:
@@ -515,6 +518,10 @@ await_start:
 		beq await_start		; ignore CR
 		cmp #LF	
 		beq await_start		; ignore LF
+		cmp #CTRL_C
+		beq @escape		; escape on Ctrl-C
+		cmp #CTRL_D
+		beq @escape		; escape on Ctrl-D
 
 		; discard input until end-of-line
 @discard:
@@ -534,8 +541,11 @@ await_start:
 		bne await_start		; nope... go try again
 		lda B			; recover it
 @done:
+		clc
 		rts
-
+@escape:
+		sec
+		rts
 
 ;-----------------------------------------------------------------------
 ; getc:
@@ -766,8 +776,10 @@ error_label:
 		.byte LF, "ERROR: ", NUL
 err_bad_digit:
 		.byte "Received invalid character (must be ASCII 0..9 or A..F)", NUL
-err_rec_type:
+err_rec_type_srec:
 		.byte "Invalid record type (must be S0, S1, S5, or S9)", NUL
+err_rec_type_ihex:
+		.byte "Invalid record type (must be 0, 1, 4, or 5)", NUL
 err_rec_too_long:
 		.byte "Record is too long (must be <= 128)", NUL
 err_bad_checksum:

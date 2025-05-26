@@ -2,11 +2,12 @@
 .SUFFIXES: .bin .lbl .lst .map .o .s .sym
 
 IMAGE=ipl.bin
-EEPROM_PART=AT28C64B
+EEPROM_PART=AT28C256
 LD_CONFIG=ipl.cfg
 
 INCLUDES=$(LD_CONFIG) \
 	loader.h.s \
+	forth.h.s \
 	monitor.h.s \
 	registers.h.s \
 	../include/acia.h.s \
@@ -18,6 +19,7 @@ INCLUDES=$(LD_CONFIG) \
 
 MODULES=ipl.o \
         fill.o \
+		forth.o \
 	loader.o \
 	monitor.o \
 	acia.o \
@@ -47,6 +49,7 @@ eeprom:	ipl.bin
 
 acia.o: ../lib/acia.s $(INCLUDES)
 fill.o: fill.s $(INCLUDES)
+forth.o: forth.s $(INCLUDES)
 hex.o: ../lib/hex.s $(INCLUDES)
 ipl.o: ipl.s $(INCLUDES)
 loader.o: loader.s $(INCLUDES)

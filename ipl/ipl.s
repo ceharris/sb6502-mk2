@@ -2,6 +2,7 @@
 		.include "ansi.h.s"
 		.include "ascii.h.s"
 		.include "conf.h.s"
+		.include "forth.h.s"
 		.include "hex.h.s"
 		.include "loader.h.s"
 		.include "monitor.h.s"
@@ -10,13 +11,14 @@
 
 		.global ipl
 
+
 		.segment "RODATA"
 id_message:
 		ansi_reset
 		ansi_home
 		ansi_erase_display
-		.byte BEL, "SB6502 Mk2", LF, NUL
-
+		.byte BEL, "SB6502 Mk2", LF
+		.byte "Press <Ctrl-C> to go to monitor or <Ctrl-F> for Forth", LF, NUL
 
 		.segment "CODE"
 
@@ -46,5 +48,9 @@ ipl:
 		lda #CONF_MODE_RAMLW_ROM
 		jsr loader
 
-		; if we returned, it means the asked to run monitor
+		; if we returned, it means the user wants the monitor or Forth
+		cmp #CTRL_F
+		bne @monitor
+		jmp forth
+@monitor:
 		jmp monitor

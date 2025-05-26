@@ -26,6 +26,7 @@
 		
 		CTRL_C = ETX
 		CTRL_D = EOT
+		CTRL_F = ACK
 		CTRL_Q = DC1
 		CTRL_R = DC2
 		CTRL_S = DC3

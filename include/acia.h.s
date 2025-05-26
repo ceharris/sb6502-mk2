@@ -12,7 +12,7 @@
 ; 256 bytes in length.
         .ifdef ACIA_ISR_INCLUDED
         .ifndef ACIA_RING
-                ACIA_RING = $200        ; address of the ring buffer
+                ACIA_RING = $7F00       ; address of the ring buffer
         .endif
         .ifndef ACIA_HEAD
                 ACIA_HEAD = $fe	        ; address of the head index pointer
@@ -53,6 +53,7 @@
 
 		.global acia_init
 		.global acia_shutdown
+                .global acia_ready
 		.global acia_getc
 		.global acia_putc
 		.global acia_isr

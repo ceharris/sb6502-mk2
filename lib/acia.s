@@ -47,6 +47,18 @@ acia_putc:
                 sta ACIA_DATA           ; write the character
                 rts
 
+;-----------------------------------------------------------------------
+; acia_ready:
+; Checks whether the console serial port has at least one character
+; waiting to be read.
+;
+; On return:
+;               Z flag set if no character is waiting
+;
+acia_ready:
+                lda ACIA_TAIL
+                cmp ACIA_HEAD           
+                rts
 
 ;-----------------------------------------------------------------------
 ; acia_getc:

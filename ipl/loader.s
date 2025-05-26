@@ -519,9 +519,11 @@ await_start:
 		cmp #LF	
 		beq await_start		; ignore LF
 		cmp #CTRL_C
-		beq @escape		; escape on Ctrl-C
+		beq @escape			; escape on Ctrl-C
 		cmp #CTRL_D
-		beq @escape		; escape on Ctrl-D
+		beq @escape			; escape on Ctrl-D
+		cmp #CTRL_F
+		beq @escape			; escape on Ctrl-F
 
 		; discard input until end-of-line
 @discard:

@@ -1,11 +1,16 @@
+		.include "acia.h.s"
 
 		.global ipl
-		.global acia_isr
 
 		.segment "CODE"
 noop_isr:
 		rti
-	
+
+		.segment "IPLVECS"
+		jmp acia_putc
+		jmp acia_getc
+		jmp acia_ready
+
 		.segment "MACHVECS"
 		.word noop_isr
 		.word ipl

@@ -529,7 +529,7 @@
 			)
 		)
 		(instances
-			(project "sb6502-mk2-rev2"
+			(project "sb6502-mk2"
 				(path "/8c8f1a65-1f54-40f3-b06e-5c7999916e29"
 					(page "2")
 				)
@@ -622,7 +622,7 @@
 			)
 		)
 		(instances
-			(project "sb6502-mk2-rev2"
+			(project "sb6502-mk2"
 				(path "/8c8f1a65-1f54-40f3-b06e-5c7999916e29"
 					(page "5")
 				)
@@ -665,7 +665,7 @@
 			)
 		)
 		(instances
-			(project "sb6502-mk2-rev2"
+			(project "sb6502-mk2"
 				(path "/8c8f1a65-1f54-40f3-b06e-5c7999916e29"
 					(page "7")
 				)
@@ -778,7 +778,7 @@
 			)
 		)
 		(instances
-			(project "sb6502-mk2-rev2"
+			(project "sb6502-mk2"
 				(path "/8c8f1a65-1f54-40f3-b06e-5c7999916e29"
 					(page "4")
 				)
@@ -921,7 +921,7 @@
 			)
 		)
 		(instances
-			(project "sb6502-mk2-rev2"
+			(project "sb6502-mk2"
 				(path "/8c8f1a65-1f54-40f3-b06e-5c7999916e29"
 					(page "3")
 				)
@@ -994,7 +994,7 @@
 			)
 		)
 		(instances
-			(project "sb6502-mk2-rev2"
+			(project "sb6502-mk2"
 				(path "/8c8f1a65-1f54-40f3-b06e-5c7999916e29"
 					(page "6")
 				)

@@ -4,6 +4,7 @@
 		.include "loader.h.s"
 		.include "ports.h.s"
 		.include "stdio.h.s"
+		.include "via.h.s"
 
 		MAX_REC_LENGTH = $80
 		RAM_WINDOW_MSB = $C0
@@ -696,10 +697,11 @@ get_exec_addr:
 ; 	9. Jump to the entry point address.
 ;
 bootstrap:
-		sei			; disable interrupts
+		sei					; disable interrupts
 		jsr acia_shutdown	; reset ACIA hardware
+		jsr via_reset		; reset VIA hardware
 		ldx #$FF
-		txs			; reset stack
+		txs					; reset stack
 
 		; preserve mode bits and entry point in registers
 		ldx ENTRY_POINT		; X = entry point LSB

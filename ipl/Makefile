@@ -31,7 +31,8 @@ MODULES=ipl.o \
 		stdio.o \
 		registers.o \
 		timer.o \
-		vectors.o
+		vectors.o \
+		via.o
 
 AS=ca65
 LD=ld65
@@ -62,6 +63,7 @@ registers.o: registers.s $(INCLUDES)
 stdio.o: ../lib/stdio.s $(INCLUDES)
 timer.o: timer.s $(INCLUDES)
 vectors.o: vectors.s $(INCLUDES)
+via.o: ../lib/via.s $(INCLUDES)
 
 $(IMAGE): $(MODULES)
 	$(LD) $(LDFLAGS) $^ -o $@ -m $*.map -Ln $*.lbl

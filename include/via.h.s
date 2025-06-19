@@ -1,6 +1,8 @@
         .ifndef VIA_H
                 VIA_H = 1
 
+                .include "ports.h.s"
+                
                 VIA_PA_LATCH = $1
                 VIA_PB_LATCH = $2
 
@@ -39,5 +41,7 @@
                 VIA_IER_SR = $4
                 VIA_IER_CA1 = $2
                 VIA_IER_CA2 = $1
+
+                .global via_reset
 
         .endif

@@ -8,7 +8,7 @@
 	.endif
 
 ; When the ISR is included, these variables are used to specify the location
-; of the ring buffer and assocaited pointers. The ring buffer is assumed to be 
+; of the ring buffer and associated pointers. The ring buffer is assumed to be 
 ; 256 bytes in length.
         .ifdef ACIA_ISR_INCLUDED
         .ifndef ACIA_RING
@@ -22,7 +22,7 @@
         .endif
         .endif
 
-
+                ACIA_RDRF =  %00000001
                 ACIA_TDRE =  %00000010
                 ACIA_DIV16 = %00000001
                 ACIA_RESET = %00000011

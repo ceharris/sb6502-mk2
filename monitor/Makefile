@@ -68,5 +68,3 @@ $(ENTRY_TMP): $(BIN_IMAGE)
 
 %.o: ../lib/%.s
 	$(AS) $(ASFLAGS) $< -o $@ -l $*.lst
-
-	

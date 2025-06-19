@@ -15,20 +15,23 @@ INCLUDES=$(LD_CONFIG) \
 	../include/conf.h.s \
 	../include/hex.h.s \
 	../include/ports.h.s \
-	../include/prog.h.s
+	../include/prog.h.s \
+	../include/via.h.s \
+	../include/zeropage.h.s
 
 MODULES=ipl.o \
         fill.o \
-	loader.o \
-	monitor.o \
-	acia.o \
-	hex.o \
-	peek.o \
-	poke.o \
-	quit.o \
-	stdio.o \
-	registers.o \
-	vectors.o
+		loader.o \
+		monitor.o \
+		acia.o \
+		hex.o \
+		peek.o \
+		poke.o \
+		quit.o \
+		stdio.o \
+		registers.o \
+		timer.o \
+		vectors.o
 
 AS=ca65
 LD=ld65
@@ -57,6 +60,7 @@ poke.o: poke.s $(INCLUDES)
 quit.o: quit.s $(INCLUDES)
 registers.o: registers.s $(INCLUDES)
 stdio.o: ../lib/stdio.s $(INCLUDES)
+timer.o: timer.s $(INCLUDES)
 vectors.o: vectors.s $(INCLUDES)
 
 $(IMAGE): $(MODULES)

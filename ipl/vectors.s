@@ -1,9 +1,15 @@
 		.include "acia.h.s"
+		.include "timer.h.s"
 
 		.global ipl
 
 		.segment "CODE"
 noop_isr:
+		rti
+
+dispatch_isr:
+		jsr acia_isr
+		jsr timer_isr
 		rti
 
 		.segment "IPLVECS"
@@ -14,4 +20,4 @@ noop_isr:
 		.segment "MACHVECS"
 		.word noop_isr
 		.word ipl
-		.word acia_isr
+		.word dispatch_isr

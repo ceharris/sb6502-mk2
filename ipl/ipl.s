@@ -1,4 +1,5 @@
 
+		.include "acia.h.s"
 		.include "ansi.h.s"
 		.include "ascii.h.s"
 		.include "conf.h.s"
@@ -8,6 +9,7 @@
 		.include "monitor.h.s"
 		.include "ports.h.s"
 		.include "stdio.h.s"
+		.include "timer.h.s"
 
 		.global ipl
 
@@ -32,12 +34,14 @@ ipl:
 		lda #CONF_MODE_RAMLW_ROM
 		sta CONF_REG
 
-		sei			; inhibit interrupts
-		cld			; clear decimal mode
+		sei								; inhibit interrupts
+		cld								; clear decimal mode
 		ldx #$ff		
-		txs			; initialize stack
+		txs								; initialize stack
 
-		jsr cinit		; initialize standard I/O
+		jsr timer_init					; initialize VIA timer
+		jsr acia_init					; initialize ACIA
+		cli								; allow interrupts
 
 		; display startup message
 		ldy #<id_message

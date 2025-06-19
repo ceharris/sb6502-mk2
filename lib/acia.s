@@ -126,7 +126,9 @@ acia_isr:
                 ror                     ; shift RDRF flag into carry
                 bcs @read_char          ; go if character waiting
                 pla
-                rti
+                rts                     ; note this is not `rti`
+                                        ; as we expect to be called
+                                        ; from vectors.s
 @read_char:
                 phx
                 ldx ACIA_TAIL           ; fetch tail index for ring buffer

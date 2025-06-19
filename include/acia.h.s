@@ -14,12 +14,13 @@
         .ifndef ACIA_RING
                 ACIA_RING = $7F00       ; address of the ring buffer
         .endif
-        .ifndef ACIA_HEAD
-                ACIA_HEAD = $fe	        ; address of the head index pointer
-        .endif
-        .ifndef ACIA_TAIL
-                ACIA_TAIL = $ff		; address of the tail index pointer
-        .endif
+                .include "zeropage.h.s"
+        ; .ifndef ACIA_HEAD
+        ;         ACIA_HEAD = $fe	        ; address of the head index pointer
+        ; .endif
+        ; .ifndef ACIA_TAIL
+        ;         ACIA_TAIL = $ff		; address of the tail index pointer
+        ; .endif
         .endif
 
                 ACIA_RDRF =  %00000001

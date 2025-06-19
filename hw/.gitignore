@@ -1,4 +1,8 @@
 .DS_Store
+~*
+*.bak
+*-bak
 *.zip
-fp-info-cache
+*-cache
+*-table
 gerbers/

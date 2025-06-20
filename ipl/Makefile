@@ -61,7 +61,7 @@ poke.o: poke.s $(INCLUDES)
 quit.o: quit.s $(INCLUDES)
 registers.o: registers.s $(INCLUDES)
 stdio.o: ../lib/stdio.s $(INCLUDES)
-timer.o: timer.s $(INCLUDES)
+timer.o: ../lib/timer.s $(INCLUDES)
 vectors.o: vectors.s $(INCLUDES)
 via.o: ../lib/via.s $(INCLUDES)
 

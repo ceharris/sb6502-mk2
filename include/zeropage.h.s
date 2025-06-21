@@ -26,6 +26,7 @@ zp_addr         .set zp_addr - size
 
                 zp_var ACIA_TAIL, 1
                 zp_var ACIA_HEAD, 1
+                zp_var ACIA_BREAK, 2
 
                 zp_var TIMER_DDDD, 2
                 zp_var TIMER_HH, 1

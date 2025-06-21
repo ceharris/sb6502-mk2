@@ -16,6 +16,7 @@ dispatch_isr:
 		jmp acia_putc
 		jmp acia_getc
 		jmp acia_ready
+		jmp acia_setbrk
 
 		.segment "MACHVECS"
 		.word noop_isr

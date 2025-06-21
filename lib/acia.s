@@ -1,5 +1,6 @@
 
 		.include "acia.h.s"
+                .include "ascii.h.s"
 		.include "ports.h.s"
 
 
@@ -15,6 +16,8 @@ acia_init:
 		; initialize the ring buffer
 		stz ACIA_HEAD
 		stz ACIA_TAIL
+                stz ACIA_BREAK
+                stz ACIA_BREAK+1
         .endif
 		
                 ; initialize the ACIA hardware
@@ -130,9 +133,22 @@ acia_isr:
                                         ; as we expect to be called
                                         ; from vectors.s
 @read_char:
+                lda ACIA_DATA           ; fetch the input character
+                cmp #CTRL_C             ; is it Ctrl-C?
+                bne @enqueue            ; go if not Ctrl-C
+                lda ACIA_BREAK
+                ora ACIA_BREAK+1
+                beq @enqueue_ctrl_c     ; go if break vector not set
+                pla                     ; remove saved A
+                pla                     ; remove PSW
+                pla                     ; remove return addr LSB
+                pla                     ; remove return addr MSB
+                jmp (ACIA_BREAK)
+@enqueue_ctrl_c:
+                lda #CTRL_C
+@enqueue:
                 phx
                 ldx ACIA_TAIL           ; fetch tail index for ring buffer
-                lda ACIA_DATA           ; fetch the input character
                 sta ACIA_RING,x         ; store input character in the ring
                 inx                     ; next ring index
                 stx ACIA_TAIL           ; store the new tail index
@@ -150,5 +166,9 @@ acia_isr:
                 lda #(ACIA_CONFIG | ACIA_NOT_RTS)
                 sta ACIA_CTRL
                 bra @next_char
-        
+
+acia_setbrk:
+                sty ACIA_BREAK
+                sta ACIA_BREAK+1
+                rts
         .endif

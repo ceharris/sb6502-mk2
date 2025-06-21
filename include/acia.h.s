@@ -58,6 +58,6 @@
 		.global acia_getc
 		.global acia_putc
 		.global acia_isr
-	
+                .global acia_setbrk
 	
 	.endif

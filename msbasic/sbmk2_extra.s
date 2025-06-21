@@ -97,7 +97,6 @@ GETC:
 	jsr cputc
 	rts
 
-
 	MEMORY_MODE = $70
 BYE:
 	lda #MEMORY_MODE
@@ -111,9 +110,15 @@ BYE:
 noop_isr:
 	rti
 
+dispatch_isr:
+	jsr acia_isr
+	jsr timer_isr
+	rti
+
 	.global acia_isr
+	.global timer_isr
 	
 	.segment "MACHVECS"
 	.word noop_isr
 	.word noop_isr
-	.word acia_isr
+	.word dispatch_isr

@@ -11,19 +11,23 @@ S19_IMAGE=$(EXECUTABLE).s19
 HEX_IMAGE=$(EXECUTABLE).hex
 ENTRY_TMP=entry.tmp
 
-INCLUDES=$(LD_CONFIG) ../include/acia.h.s ../include/stdio.h.s ../include/reset.s
+INCLUDES=$(LD_CONFIG) \
+		../include/acia.h.s \
+		../include/reset.s \
+		../include/stdio.h.s \
+		../include/timer.h.s 
 
 SOURCES=array.s chrget.s defines.s error.s eval.s extra.s float.s flow1.s flow2.s \
 	init.s inline.s input.s iscntc.s loadsave.s macros.s memory.s message.s misc1.s \
         misc2.s msbasic.s poke.s print.s program.s rnd.s string.s token.s trig.s \
         var.s zeropage.s defines_sbmk2.s sbmk2_extra.s sbmk2_iscntc.s
 
-MODULES=msbasic.o acia.o stdio.o
+MODULES=msbasic.o acia.o stdio.o timer.o
 
 AS=ca65
 LD=ld65
 
-ASFLAGS=--cpu 65c02 -Dsbmk3 -I ../include -DACIA_ISR_INCLUDED=1
+ASFLAGS=--cpu 65c02 -Dsbmk3 -I ../include -DACIA_ISR_INCLUDED=1 -DZP_MSBASIC=1
 LDFLAGS=--config $(LD_CONFIG)
 
 all: $(S19_IMAGE) $(HEX_IMAGE)
@@ -37,6 +41,9 @@ acia.o: ../lib/acia.s $(INCLUDES)
 	$(AS) $(ASFLAGS) $< -o $@ -l $*.lst
 
 stdio.o: ../lib/stdio.s $(INCLUDES)
+	$(AS) $(ASFLAGS) $< -o $@ -l $*.lst
+
+timer.o: ../lib/timer.s $(INCLUDES)
 	$(AS) $(ASFLAGS) $< -o $@ -l $*.lst
 
 $(S19_IMAGE): $(BIN_IMAGE) $(ENTRY_TMP)

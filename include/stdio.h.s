@@ -16,8 +16,10 @@
 
 		.global cwaitc
 		.global cputc
+	.ifndef ZP_MSBASIC
 		.global cputcc
 		.global cgets
 		.global cputs
-
+	.endif
+	
 	.endif

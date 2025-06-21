@@ -36,6 +36,7 @@ cputc:
 		jsr acia_putc
 		rts
 
+		.ifndef ZP_MSBASIC
 ;-----------------------------------------------------------------------
 ; cputcc:
 ; Puts a character, but translates control characters to a printable
@@ -170,3 +171,5 @@ cputs:
 		ldy STDIO_W0+0
 		lda STDIO_W0+1
 		rts
+
+		.endif

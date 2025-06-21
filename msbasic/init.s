@@ -1,4 +1,5 @@
 .include "stdio.h.s"
+.include "timer.h.s"
 .segment "INIT"
 .global COLD_START
 
@@ -9,6 +10,7 @@ PR_WRITTEN_BY:
         jsr     STROUT
 
 COLD_START:
+        jsr     timer_init
         jsr     cinit
         cli
 
@@ -127,8 +129,10 @@ L4098:
 
         jsr     CHRGET                  ; get a character from the input
         cmp     #$41                    ; does the input start with 'A'
-        beq     PR_WRITTEN_BY           ; show "written by" and restart
+        bne     no_egg
+        jmp     PR_WRITTEN_BY           ; show "written by" and restart
 
+no_egg:
         tay                             ; Y = input character  
         bne     L40EE                   ; go if not end of input
         ; Y, A = RAMSTART2

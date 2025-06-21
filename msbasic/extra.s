@@ -98,7 +98,7 @@ CONVERT_HEX:
 	jsr	GIVAYF			; put result in FAC
 	rts
 @error:
-        jmp	SYNERR			; throw syntqx error
+        jmp	SYNERR			; throw syntax error
 
 ; ----------------------------------------------------------------------
 ; "HEX$" FUNCTION
@@ -118,43 +118,43 @@ HEXSTR:
 	lda	FAC_LAST
 	jsr	@convert
 	tya	
-	bne	@done			; go if at least 1 digit converted
+	bne	@done					; go if at least 1 digit converted
 	lda	#'0'						
-	sta	STACK2-1,y		; stuff a '0' into the (empty) buffer
+	sta	STACK2-1,y				; stuff a '0' into the (empty) buffer
 	iny
 @done:
 	lda	#0	
-	sta	STACK2-1,y		; null terminate the buffer
-	pla				; remove something that was placed
-	pla				;    on the stack by our caller
-	lda	#<STACK2-1		; A=LSB of buffer
-	ldy	#>STACK2-1		; Y=MSB of buffer
-	jmp	STRLIT			; convert it to a string result
+	sta	STACK2-1,y				; null terminate the buffer
+	pla							; remove something that was placed
+	pla							;    on the stack by our caller
+	lda	#<STACK2-1				; A=LSB of buffer
+	ldy	#>STACK2-1				; Y=MSB of buffer
+	jmp	STRLIT					; convert it to a string result
 @convert:
-	pha				; preserve value to convert
-	lsr				; shift upper nibble
-	lsr				;    into lower nibble
+	pha							; preserve value to convert
+	lsr							; shift upper nibble
+	lsr							;    into lower nibble
 	lsr
 	lsr
-	jsr	@nibble			; convert nibble
-	pla				; recover value to convert
-	and	#$0f			; mask off upper nibble
-	jsr	@nibble			; convert nibble
+	jsr	@nibble					; convert nibble
+	pla							; recover value to convert
+	and	#$0f					; mask off upper nibble
+	jsr	@nibble					; convert nibble
 	rts
 @nibble:
 	cmp	#9+1
-	bcc	@digit			; go if 0..9
+	bcc	@digit					; go if 0..9
 	clc
-	adc	#7			; bias so that we get 'A'..'F'
+	adc	#7						; bias so that we get 'A'..'F'
 @digit:
-	tax				; set Z flag if A is zero
-	bne	@not_zero		; if not zero, always convert
+	tax							; set Z flag if A is zero
+	bne	@not_zero				; if not zero, always convert
 	tya
-	beq	@skip			; do zero only if at least 1 non-zero
+	beq	@skip					; do zero only if at least 1 non-zero
 	lda	#0
 @not_zero:
-	adc	#'0'			; convert binary to ASCII hexadecimal
-	sta	STACK2-1,y		; store hexadecimal digit into buffer
+	adc	#'0'					; convert binary to ASCII hexadecimal
+	sta	STACK2-1,y				; store hexadecimal digit into buffer
 	iny
 @skip:
 	rts

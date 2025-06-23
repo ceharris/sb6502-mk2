@@ -139,6 +139,10 @@ acia_isr:
                 lda ACIA_BREAK
                 ora ACIA_BREAK+1
                 beq @enqueue_ctrl_c     ; go if break vector not set
+                ; flush input buffer
+                lda ACIA_TAIL           
+                sta ACIA_HEAD
+                ; clean up the stack
                 pla                     ; remove saved A
                 pla                     ; remove PSW
                 pla                     ; remove return addr LSB

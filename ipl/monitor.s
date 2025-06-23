@@ -64,6 +64,8 @@ command:
 		cmp #'*'
 		beq @fill
 		and #$df		; convert to upper case
+		cmp #'H'
+		beq @hex
 		cmp #'I'
 		beq @ijump
 		cmp #'J'
@@ -115,6 +117,11 @@ command:
 		lda #<(command-1)
 		pha
 		bra @jump
+
+@hex:
+		jsr hex_load
+		jmp command
+	
 @ijump:
 		; transfer vector address to w2
 		tw1w2
@@ -357,3 +364,122 @@ address_arg:
 		sta b1			; store the MSB
 		clc			; clear carry to indicate address read
 		rts
+
+;-----------------------------------------------------------------------
+; hex_load:
+; Loads a sequence of Intel Hex records from standard input.
+;
+;
+hex_load:
+		ldy #<ihex_prompt
+		lda #>ihex_prompt
+		jsr cputs
+
+@next_rec:
+		ldy #0
+		jsr cgets
+		pha				; preserve input terminator
+		lda #LF		
+		jsr cputc		; output newline
+		pla				; recover input terminator
+		cmp #CTRL_C		; terminated by Ctrl-C?
+		bne @find_rec
+		rts
+@find_rec:
+		lda (STDIO_W0),y	; get next input char
+		beq @next_rec		; next record on null terminator
+		iny
+
+		cmp #':'			; start of record?
+		bne @find_rec
+		
+		lda #0
+		sta b2				; b2 = initial checksum
+
+		; read record length
+		jsr @read_byte
+		bcc @syntax_error
+		lda b0
+		sta b1				; b1 = record length
+
+		; read address MSB
+		jsr @read_byte
+		bcc @syntax_error
+		lda b0
+		sta w1+1			; w1 MSB = address MSB
+
+		; read address LSB
+		jsr @read_byte
+		bcc @syntax_error
+		lda b0
+		sta w1				; w1 LSB = address LSB
+
+		; read record type
+		jsr @read_byte
+		bcc @syntax_error
+		lda b0
+		beq @data_rec		; go if type 0 (data record)
+		cmp #1
+		bne @syntax_error	; go if not type 1 (EOF record)
+
+		; end of file record
+@eof_rec:
+		jsr @read_byte		; read checksum
+		lda b2				; A = record checksum
+		bne @checksum_error
+		rts
+		
+@data_rec:
+		lda b1				; A = record length
+		beq @data_rec_end
+		dec b1
+		jsr @read_byte
+		bcc @syntax_error
+		phy
+		ldy #0
+		lda b0
+		sta (w1),y			; store input byte
+		ply
+		; increment w1
+		inc w1
+		bne @data_rec
+		inc w1+1
+		bra @data_rec
+@data_rec_end:
+		jsr @read_byte		; read checksum
+		bcc @syntax_error
+		lda b2				; A = record checksum
+		bne @checksum_error
+		jmp @next_rec
+
+@checksum_error:
+		ldy #<checksum_msg
+		lda #>checksum_msg
+		bra @error
+@syntax_error:
+		ldy #<syntax_msg
+		lda #>syntax_msg
+@error:
+		jsr cputs
+		rts
+
+@read_byte:
+		lda #2
+		jsr ihex8
+		sta b0
+		lda b2			; A = checksum
+		clc
+		adc b0			; update checksum
+		sta b2			; store new checksum 
+		sec				; carry set indicates success
+		rts
+
+
+		.segment "RODATA"
+
+ihex_prompt: 	
+		.byte "<Ctrl-C to stop>", LF, NUL
+syntax_msg:
+		.byte "syntax error", LF, BEL, NUL
+checksum_msg:
+		.byte "bad checksum", LF, BEL, NUL

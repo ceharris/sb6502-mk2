@@ -147,6 +147,7 @@ acia_isr:
                 pla                     ; remove PSW
                 pla                     ; remove return addr LSB
                 pla                     ; remove return addr MSB
+                sei
                 jmp (ACIA_BREAK)
 @enqueue_ctrl_c:
                 lda #CTRL_C

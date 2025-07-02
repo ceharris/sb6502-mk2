@@ -9,16 +9,19 @@ PU=minipro
 .SUFFIXES: .chp .fus .jed .pin .pld
 
 
-all:  glue1.jed glue2.jed ready
+all:  glue1.jed glue2.jed vector.pld ready
 
 ready:
 	@echo "JED files have been prepared"
-	@echo "Use 'make chip1' or 'make chip2' to program a PLD"
+	@echo "Use 'make chip1' or 'make chip2' or 'make vector' to program a PLD"
 
 chip1: glue1.jed
 	$(PU) -p $(PART1) -uP -w $<
 
 chip2: glue2.jed
+	$(PU) -p $(PART2) -uP -w $<
+
+vector: vector.jed
 	$(PU) -p $(PART2) -uP -w $<
 
 clean:

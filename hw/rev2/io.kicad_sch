@@ -4,6 +4,11 @@
 	(generator_version "9.0")
 	(uuid "4716c23e-7bcd-4c74-bdaf-62840b32b927")
 	(paper "USLetter")
+	(title_block
+		(title "Vireo Microcomputer")
+		(date "2025-07-27")
+		(rev "2")
+	)
 	(lib_symbols
 		(symbol "74xx:74HC138"
 			(exclude_from_sim no)

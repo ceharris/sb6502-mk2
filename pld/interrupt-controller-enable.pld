@@ -1,0 +1,16 @@
+GAL16V8
+6502 ICE
+
+MIO  NC   A1    A2   A3   A4   A5   A6   A7   GND
+NC   NC   NC    NC   NC   NC   NC   NC   CE   VCC
+
+/CE = /MIO*A1*A2*A3*A4*A5*A6*A7
+
+DESCRIPTION
+
+This PLD provides the chip enable signal for the interrupt vector
+controller's mask register. If M/IO is low (signalling that an I/O
+address is on A0..15) and all of A1..7 are logic one, the mask
+register is enabled. This corresponds to addresses $FFFE and $FFFF,
+which are no unused since the interrupt controller re-vectors maskable 
+interrupts to the range $FFE0..FFEF.

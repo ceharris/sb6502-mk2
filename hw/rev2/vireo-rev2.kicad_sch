@@ -4,6 +4,11 @@
 	(generator_version "9.0")
 	(uuid "8c8f1a65-1f54-40f3-b06e-5c7999916e29")
 	(paper "USLetter")
+	(title_block
+		(title "Vireo Microcomputer")
+		(date "2025-07-27")
+		(rev "2")
+	)
 	(lib_symbols)
 	(junction
 		(at 156.21 110.49)
@@ -12,10 +17,10 @@
 		(uuid "1032a619-25da-4afe-8c9b-ca89d8fa1a76")
 	)
 	(junction
-		(at 109.22 85.09)
+		(at 111.76 87.63)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "16ec8ec8-72db-49cc-a0b8-248d07c5d8b3")
+		(uuid "235bfeeb-d8da-4be9-8b38-b4dc50b1b240")
 	)
 	(junction
 		(at 119.38 67.31)
@@ -59,12 +64,6 @@
 		(color 0 0 0 0)
 		(uuid "caa89812-7604-4cd8-970a-5749fd71a8ad")
 	)
-	(junction
-		(at 114.3 87.63)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ece665a3-944e-4b05-844d-838c20dc8c38")
-	)
 	(wire
 		(pts
 			(xy 156.21 110.49) (xy 156.21 143.51)
@@ -107,7 +106,7 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 74.93) (xy 114.3 87.63)
+			(xy 111.76 74.93) (xy 111.76 87.63)
 		)
 		(stroke
 			(width 0)
@@ -124,26 +123,6 @@
 			(type default)
 		)
 		(uuid "21287966-f329-4d51-b84c-3f0d1031b425")
-	)
-	(wire
-		(pts
-			(xy 114.3 87.63) (xy 114.3 113.03)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "21543767-4364-48d3-93ba-a3e1351f3dbd")
-	)
-	(bus
-		(pts
-			(xy 109.22 72.39) (xy 109.22 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2167c590-8860-4129-b10e-d9ddd1a9cf13")
 	)
 	(bus
 		(pts
@@ -167,7 +146,7 @@
 	)
 	(wire
 		(pts
-			(xy 111.76 110.49) (xy 156.21 110.49)
+			(xy 109.22 110.49) (xy 156.21 110.49)
 		)
 		(stroke
 			(width 0)
@@ -187,7 +166,7 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 113.03) (xy 158.75 113.03)
+			(xy 111.76 113.03) (xy 158.75 113.03)
 		)
 		(stroke
 			(width 0)
@@ -257,16 +236,6 @@
 	)
 	(bus
 		(pts
-			(xy 109.22 85.09) (xy 124.46 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "47ab4f5f-8d0e-42a3-9c27-2bbb18298e9f")
-	)
-	(bus
-		(pts
 			(xy 119.38 67.31) (xy 119.38 80.01)
 		)
 		(stroke
@@ -284,16 +253,6 @@
 			(type default)
 		)
 		(uuid "4c8f61a1-4cf5-4040-b2ef-80c536bf1889")
-	)
-	(wire
-		(pts
-			(xy 114.3 87.63) (xy 124.46 87.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5328e6ef-bae4-4144-9421-bcfd3ffdd3af")
 	)
 	(wire
 		(pts
@@ -317,7 +276,7 @@
 	)
 	(wire
 		(pts
-			(xy 111.76 77.47) (xy 111.76 110.49)
+			(xy 109.22 77.47) (xy 109.22 110.49)
 		)
 		(stroke
 			(width 0)
@@ -347,7 +306,7 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 77.47) (xy 111.76 77.47)
+			(xy 100.33 77.47) (xy 109.22 77.47)
 		)
 		(stroke
 			(width 0)
@@ -374,16 +333,6 @@
 			(type default)
 		)
 		(uuid "7a2140a4-ced4-4bd0-bc43-1b0cfaf8e702")
-	)
-	(bus
-		(pts
-			(xy 109.22 138.43) (xy 170.18 138.43)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "819377da-7c9a-453e-86f7-7a9c62c1845a")
 	)
 	(bus
 		(pts
@@ -437,6 +386,16 @@
 	)
 	(bus
 		(pts
+			(xy 100.33 72.39) (xy 114.3 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8bd71a4a-2692-4fe5-b37b-7ba2ab3470e8")
+	)
+	(bus
+		(pts
 			(xy 161.29 69.85) (xy 161.29 80.01)
 		)
 		(stroke
@@ -457,7 +416,7 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 74.93) (xy 114.3 74.93)
+			(xy 100.33 74.93) (xy 111.76 74.93)
 		)
 		(stroke
 			(width 0)
@@ -494,6 +453,16 @@
 			(type default)
 		)
 		(uuid "b51ebe00-ab4f-4b61-9b6d-23cb44474bad")
+	)
+	(bus
+		(pts
+			(xy 114.3 72.39) (xy 114.3 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b8b76acc-0fc6-4e44-8752-d58eb0a1f579")
 	)
 	(wire
 		(pts
@@ -537,6 +506,26 @@
 	)
 	(wire
 		(pts
+			(xy 111.76 87.63) (xy 124.46 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d627f1d1-2e79-4e4b-ae66-d70b890d4843")
+	)
+	(bus
+		(pts
+			(xy 114.3 85.09) (xy 124.46 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "da624e58-729e-43e3-910d-f8cb5aeb6ad9")
+	)
+	(wire
+		(pts
 			(xy 148.59 92.71) (xy 170.18 92.71)
 		)
 		(stroke
@@ -555,15 +544,15 @@
 		)
 		(uuid "e3ee5417-27e5-4282-b0fc-6345af64c85e")
 	)
-	(bus
+	(wire
 		(pts
-			(xy 109.22 85.09) (xy 109.22 138.43)
+			(xy 111.76 87.63) (xy 111.76 113.03)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e7aac9d9-2e07-4d2c-b74a-828923647ad4")
+		(uuid "eaa9c704-d54a-4d21-a1a7-e2c2ed6bcb1a")
 	)
 	(wire
 		(pts
@@ -594,16 +583,6 @@
 			(type default)
 		)
 		(uuid "f76298ec-5ed5-4f23-9f70-cd0b31240995")
-	)
-	(bus
-		(pts
-			(xy 100.33 72.39) (xy 109.22 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fd6e8588-32ed-48c7-826c-cd5f15c0d9f5")
 	)
 	(sheet
 		(at 84.455 64.77)
@@ -682,7 +661,7 @@
 		)
 		(pin "LA[1..4]" input
 			(at 100.33 72.39 0)
-			(uuid "5c874d92-e1f5-4abd-ab70-c3473ddd83af")
+			(uuid "7487deee-c3c1-40da-8712-6adca5aa8d77")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -691,7 +670,7 @@
 			)
 		)
 		(instances
-			(project "sb6502-mk2"
+			(project "vireo-rev2"
 				(path "/8c8f1a65-1f54-40f3-b06e-5c7999916e29"
 					(page "2")
 				)
@@ -784,7 +763,7 @@
 			)
 		)
 		(instances
-			(project "sb6502-mk2"
+			(project "vireo-rev2"
 				(path "/8c8f1a65-1f54-40f3-b06e-5c7999916e29"
 					(page "5")
 				)
@@ -827,7 +806,7 @@
 			)
 		)
 		(instances
-			(project "sb6502-mk2"
+			(project "vireo-rev2"
 				(path "/8c8f1a65-1f54-40f3-b06e-5c7999916e29"
 					(page "7")
 				)
@@ -950,7 +929,7 @@
 			)
 		)
 		(instances
-			(project "sb6502-mk2"
+			(project "vireo-rev2"
 				(path "/8c8f1a65-1f54-40f3-b06e-5c7999916e29"
 					(page "4")
 				)
@@ -1094,7 +1073,7 @@
 		)
 		(pin "LA[1..4]" input
 			(at 124.46 85.09 180)
-			(uuid "21b236a8-87dd-46f5-9fa3-a3da75680b1b")
+			(uuid "05a895a7-9f9a-443e-9516-2edeb2a6677e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1103,7 +1082,7 @@
 			)
 		)
 		(instances
-			(project "sb6502-mk2"
+			(project "vireo-rev2"
 				(path "/8c8f1a65-1f54-40f3-b06e-5c7999916e29"
 					(page "3")
 				)
@@ -1185,18 +1164,8 @@
 				(justify left)
 			)
 		)
-		(pin "LA[1..4]" input
-			(at 170.18 138.43 180)
-			(uuid "c6e161b9-20dd-4347-87c3-c27205f0c1af")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(instances
-			(project "sb6502-mk2"
+			(project "vireo-rev2"
 				(path "/8c8f1a65-1f54-40f3-b06e-5c7999916e29"
 					(page "6")
 				)

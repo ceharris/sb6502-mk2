@@ -43,18 +43,16 @@
 ;
 ; The program image is copied into the unmapped 64K of the memory module,
 ; by paging target memory segments into the window at $C000. After the
-; image has been loaded, the memory module is reconfigured to map
-; the swap the memory containing the loaded image into the address space
-; of the 6502. A small bootstrap routine is then copied into the lower 
-; portion of the stack space. Once control has been transferred to the 
-; bootstrap routine, the ROM is swapped out, the paging window is disabled, 
-; and control is transferred to the entry point address specified for the
-; loaded image.
+; image has been loaded, the memory module is reconfigured the swap the 
+; memory containing the loaded image into the address space of the 6502.
+; A small bootstrap routine is then copied into the lower portion of the
+; stack space. Once control has been transferred to the bootstrap routine,
+; the ROM is swapped out, the paging window is disabled, and control is 
+; transferred to the entry point address specified for the loaded image.
 ; 
 ; Assumes that the console ACIA hardware has been initialized for 
 ; interrupt-driven input as the stdio provider. The ACIA ISR should
-; be designed to use some form of handshaking 
-to avoid overrunning the 
+; be designed to use some form of handshaking to avoid overrunning the 
 ; input buffer as the program image is loaded.
 ;
 ; On entry:
